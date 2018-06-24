@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TaskService } from './tasks.service';
 import { Task } from './task';
+import { TaskUpdateService} from './taskUpdate.service';
 
 @Component({
   selector: 'my-task-list',
@@ -9,7 +10,7 @@ import { Task } from './task';
 <li *ngFor="let task of tasks" 
  [class.selected]="task === selectedTask"
 (click)="onSelect(task)">
- <span class="badge">{{task.id}}</span> <span> {{task.name}} </span>
+ <span class="badge">{{task.id}}</span> <span> {{task.title}} </span>
   <button class="delete"
     (click)="delete(task); $event.stopPropagation()">x</button>
 </li>
@@ -43,6 +44,9 @@ index = 20;
 
   save(): void {
     console.log('update ' + this.selectedTask.id);
+    console.log('update ' + this.selectedTask.start);
+    console.log('update ' + this.selectedTask.title);
+    
     if(this.selectedTask.id != null){
         this.taskService.update(this.selectedTask);
     } else {
@@ -52,11 +56,13 @@ index = 20;
 
 
 add(task: Task): void {
-  this.taskService.create(task.name, task.deadline)
+  this.taskService.create(task.title, task.start)
     .then(task => {
       console.log('created ' + task.id);
       this.tasks.push(task);
       this.selectedTask = null;
+      console.log('update List');
+      this.taskUpdateService.updateList(this.tasks);              
     });
 }
 
@@ -80,11 +86,12 @@ delete(task: Task): void {
   }
 
   onSelect(task : Task){
+    console.log(task);
     this.selectedTask = task;
   }
 
 
-constructor(private taskService: TaskService) { 
+constructor(private taskService: TaskService, private taskUpdateService: TaskUpdateService) { 
 
 
 }

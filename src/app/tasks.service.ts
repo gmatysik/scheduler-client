@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task';
-import { HttpClient} from  '@angular/common/http';
+import { HttpClient, HttpHeaders} from  '@angular/common/http';
 //import 'rxjs/add/operator/toPromise';
 
 //import { TASKS } from './mock-tasks';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 
 @Injectable({
   providedIn:  'root'
 })
 export class TaskService{
 
+  
 private tasksUrl = 'http://localhost:8080/tasks';  // URL to web api
 //private tasksUrl = 'api/tasks';  // URL to web api
 private latestTaskUrl = 'http://localhost:8080/tasks/task/1';  // URL to web api
@@ -56,15 +62,31 @@ update(task: Task): Promise<Task> {
     .catch(this.handleError);
 }
 
-create(name: string, deadline: string): Promise<Task> {
+create(title: string, start: string): Promise<Task> {
   console.log('create ' + name);
   console.log('url ' + this.tasksUrl);
+  var newDate = new Date(start);
+  var newDate = this.convertUTCDateToLocalDate(start);
+
+  console.log('create start ' + newDate);
+  
 
   return this.http
-    .post(this.tasksUrl + '/task', JSON.stringify({name: name, deadline: deadline}))
+    .post(this.tasksUrl + '/task', JSON.stringify({title: title, start: newDate}), httpOptions)
     .toPromise()
     .then(res => res as Task)
     .catch(this.handleError);
+}
+
+convertUTCDateToLocalDate(date) {
+  var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+
+  var offset = date.getTimezoneOffset() / 60;
+  var hours = date.getHours();
+
+  newDate.setHours(hours - offset);
+
+  return newDate;   
 }
 
 delete(id: number): Promise<void> {

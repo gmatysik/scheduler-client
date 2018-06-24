@@ -12,10 +12,10 @@ import { TaskListComponent } from './taskList.component';
     Id: <span> {{selectedTask.id}} </span>
   </div>
   <div>
-    Name: <span> {{selectedTask.name}} </span>
+    Name: <span> {{selectedTask.title}} </span>
   </div>
   <div>
-    Deadline: <span> {{selectedTask.deadline}} </span>
+    Start: <span> {{selectedTask.start}} </span>
   </div>
 </div>
   `,

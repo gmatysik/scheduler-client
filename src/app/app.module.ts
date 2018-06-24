@@ -16,6 +16,9 @@ import 'moment';
 import 'fullcalendar';
 import {MyModel} from './scheduler-calendar';
 import { HttpClientModule } from  '@angular/common/http';
+import {CalendarModule} from 'primeng/calendar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TaskUpdateService} from './taskUpdate.service';
 
 const appRoutes: Routes = [
   { path: 'next-task', component: DetailComponent },
@@ -38,10 +41,12 @@ const appRoutes: Routes = [
     AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     ScheduleModule,
     HttpClientModule,
     FormsModule,
+    CalendarModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     RouterModule.forRoot(
@@ -49,7 +54,7 @@ const appRoutes: Routes = [
       { enableTracing: true }),
 
   ],
-  providers: [],
+  providers: [TaskUpdateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
