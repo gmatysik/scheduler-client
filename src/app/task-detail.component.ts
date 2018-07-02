@@ -8,9 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
     <div *ngIf="task">
       <h2>{{task.title}} details</h2>
       <div><label>id: </label>{{task.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="task.title" placeholder="title"/>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="name" [(ngModel)]="task.title" placeholder="title" class="form-control"/>
+      </div>
   <!--input type="text"
   [(ngModel)]="task.title"
   [minDate]="minDate"
@@ -19,9 +20,15 @@ import { Component, Input, OnInit } from '@angular/core';
   bsDatepicker [(bsValue)]="newVar"
         value="{{ newVar | date:'yyyy-MM-dd' }}"/-->
            <!--span class="btn btn-success" (click)="dp.toggle()" class="glyphicon glyphicon-calendar"></span-->
-           <p-calendar [(ngModel)]="task.start" dateFormat="yy-mm-dd" showTime="true" hourFormat="24"></p-calendar>
-           <p-calendar [(ngModel)]="task.end" dateFormat="yy-mm-dd" showTime="true" hourFormat="24"></p-calendar>           
-      </div>
+           <div class="form-group">
+            <label for="start">Start time:</label>           
+            <p-calendar type="start" [(ngModel)]="task.start" dateFormat="yy-mm-dd" showTime="true" hourFormat="24" class="form-control"></p-calendar>
+           </div>
+           
+           <div class="form-group">
+            <label for="end">End time:</label>           
+            <p-calendar type="end" [(ngModel)]="task.end" dateFormat="yy-mm-dd" showTime="true" hourFormat="24" class="form-control"></p-calendar>           
+           </div>
     </div>
   `
 })
