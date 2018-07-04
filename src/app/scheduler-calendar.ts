@@ -17,33 +17,45 @@ const httpOptions = {
   providers: [TaskService]
 })
 export class MyModel {
-    subscription: Subscription;
-
+    selectedTask : Task;
+    
     private tasksUrl = 'http://localhost:8080/tasks';  // URL to web api
 
     constructor(private taskService: TaskService, private taskUpdateService: TaskUpdateService) { 
-        this.subscription = taskUpdateService.refreshAnnounced$.subscribe(
-            tasks => {
-                console.log("Refresche" + tasks);
-                this.events = tasks;
-          });        
-        
-        }
+    }
         
         isOpen = false;
   events: any[];
   
+  handleEventClick(e) {
+    console.log('handleEvent: ' + e.calEvent.start.format().replace('T',' ').slice(0,-3));
+    console.log('handleEvent: ' + e.calEvent.id);
+    
+    this.taskUpdateService.updateTask(e.calEvent.id);
+
+    //this.selectedTask = e.calEvent;
+    //this.selectedTask.start = e.calEvent.start.format().replace('T',' ').slice(0,-3);
+    //e.calEvent = Selected event
+    //e.jsEvent = Browser click event
+    //e.view = Current view object
+}
+
   handleRefresh(agreed: Task[]) {
     console.log('handleRefresh');
   }
 
-      ngOnInit() {
-        this.taskService.getTasks().then(events => {this.events = events;});
-        this.taskUpdateService.emiter.subscribe(
-            tasks => {
-                console.log("Refreshing" + tasks);
-                this.events = tasks;
-          });        
+    ngOnInit() {
+    this.taskService.getTasks().then(events => {this.events = events;});
+    this.taskUpdateService.emiter.subscribe(
+        tasks => {
+            console.log("Refreshing" + tasks);
+            this.events = tasks;
+        });        
+    }        
+}
+
+
+
 
 /*
           this.events = [
@@ -72,6 +84,4 @@ export class MyModel {
                   "end": "2016-01-13"
               }
           ];*/
-      }
-        
-}
+  

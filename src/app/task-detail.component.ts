@@ -1,5 +1,5 @@
 import { Task } from './task'
-
+import { TaskUpdateService} from './taskUpdate.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -22,12 +22,12 @@ import { Component, Input, OnInit } from '@angular/core';
            <!--span class="btn btn-success" (click)="dp.toggle()" class="glyphicon glyphicon-calendar"></span-->
            <div class="form-group">
             <label for="start">Start time:</label>           
-            <p-calendar type="start" [(ngModel)]="task.start" dateFormat="yy-mm-dd" showTime="true" hourFormat="24" class="form-control"></p-calendar>
+            <p-calendar type="start" [(ngModel)]="task.start" dateFormat="yy-mm-dd" [showTime]="true" hourFormat="24" class="form-control"></p-calendar>
            </div>
            
            <div class="form-group">
             <label for="end">End time:</label>           
-            <p-calendar type="end" [(ngModel)]="task.end" dateFormat="yy-mm-dd" showTime="true" hourFormat="24" class="form-control"></p-calendar>           
+            <p-calendar type="end" [(ngModel)]="task.end" dateFormat="yy-mm-dd" [showTime]="true" hourFormat="24" class="form-control"></p-calendar>           
            </div>
     </div>
   `
@@ -36,6 +36,8 @@ export class TaskDetailComponent  implements OnInit  {
     @Input() task: Task;
     newVar : Date;
     
+    constructor(private taskUpdateService: TaskUpdateService) { 
+    }
       ngOnInit() {
         this.newVar = new Date();
         console.log(this.newVar);

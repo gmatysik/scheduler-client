@@ -27,7 +27,7 @@ export class DetailComponent  {
    selectedTask : Task;
 
   getLatestTask(): void {
-    this.taskService.getLatestTasks().then(task => this.selectedTask = task);
+    this.taskService.getLatestTasks().then(tasks => this.selectedTask = tasks[0]);
   }
 
   ngOnInit(): void {

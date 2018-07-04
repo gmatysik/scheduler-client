@@ -7,13 +7,15 @@ import { Subject }    from 'rxjs';
 export class TaskUpdateService {
 
   @Output() emiter: EventEmitter<Task[]> = new EventEmitter();
-  private refresh = new Subject<Task[]>();
-  refreshAnnounced$ = this.refresh.asObservable();
+  @Output() taskRefreshEmiter: EventEmitter<String> = new EventEmitter();
   
   updateList(tasks : Task[]) {
     console.log('Emit Event');  
-    //this.refresh.next(tasks);  
     this.emiter.emit(tasks);
   }
 
+  updateTask(id : String) {
+    console.log('Emit Id ' + id);  
+    this.taskRefreshEmiter.emit(id);
+  }
 }
