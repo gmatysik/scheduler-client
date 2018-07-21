@@ -43,16 +43,11 @@ index = 20;
 
   getTasks(): void {
     this.taskService.getTasks().then(tasks => this.tasks = tasks);
-    
   }
 
 
   save(): void {
-    console.log('update ' + this.selectedTask.id);
-    console.log('update ' + this.selectedTask.start);
-    console.log('update ' + this.selectedTask.title);
-    
-    if(this.selectedTask.id != null){
+    if(this.selectedTask.id != null){      
         this.taskService.update(this.selectedTask);
     } else {
         this.add(this.selectedTask);
@@ -63,10 +58,8 @@ index = 20;
 add(task: Task): void {
   this.taskService.create(task.title, task.start)
     .then(task => {
-      console.log('created ' + task.id);
       this.tasks.push(task);
       this.selectedTask = null;
-      console.log('update List');
       this.taskUpdateService.updateList(this.tasks);              
     });
 }
@@ -91,11 +84,7 @@ delete(task: Task): void {
     this.index = 20; 
     this.taskUpdateService.taskRefreshEmiter.subscribe(
       id => {
-          console.log("Refreshing" + id);
           this.taskService.getTask(id).then(task => this.selectedTask  = task);
-          console.log("Refreshing" + this.taskService.getTasks());
-          
-          console.log("this.selectedTask: " + this.selectedTask);
       });        
 
   }
@@ -106,9 +95,7 @@ delete(task: Task): void {
   }
 
 
-constructor(private taskService: TaskService, private taskUpdateService: TaskUpdateService) { 
-
-
-}
+  constructor(private taskService: TaskService, private taskUpdateService: TaskUpdateService) { 
+  }
 
 }

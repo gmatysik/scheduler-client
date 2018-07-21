@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task';
 import { HttpClient, HttpHeaders} from  '@angular/common/http';
-//import 'rxjs/add/operator/toPromise';
-
-//import { TASKS } from './mock-tasks';
+import * as moment from 'moment';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
 const httpOptions = {
@@ -35,7 +33,6 @@ getTask(id: String): Promise<Task> {
   
 
   getTasks(): Promise<Task[]> {
-
      return this.http.get(this.tasksUrl)
               .toPromise()
               .then(response => response as Task[])
@@ -53,25 +50,25 @@ getTask(id: String): Promise<Task> {
 private headers = new Headers({'Content-Type': 'application/json'});
 
 update(task: Task): Promise<Task> {
+  var newFormDate = moment(task.start).format("YYYY-MM-DD hh:mm");
+  console.log('newFormDate 2' + newFormDate);
+  //task.start = this.convertUTCDateToLocalDate(new Date(task.start)).toISOString();
   const url = `${this.tasksUrl}/${task.id}`;
   return this.http
-    .put(url, JSON.stringify(task))
+    .put(url, JSON.stringify({title: task.title, start: newFormDate, id: task.id}), httpOptions)
     .toPromise()
     .then(() => task)
     .catch(this.handleError);
 }
 
 create(title: string, start: string): Promise<Task> {
-  console.log('create ' + name);
-  console.log('url ' + this.tasksUrl);
   var newDate = new Date(start);
-  var newDate = this.convertUTCDateToLocalDate(start);
 
-  console.log('create start ' + newDate);
+  var newFormDate = moment(start).format("YYYY-MM-DD hh:mm");  
   
 
   return this.http
-    .post(this.tasksUrl + '/task', JSON.stringify({title: title, start: newDate}), httpOptions)
+    .post(this.tasksUrl + '/task', JSON.stringify({title: title, start: newFormDate}), httpOptions)
     .toPromise()
     .then(res => res as Task)
     .catch(this.handleError);

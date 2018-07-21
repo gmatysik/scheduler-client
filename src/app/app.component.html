@@ -5,11 +5,4 @@
   <a routerLink="/task-list" routerLinkActive="active">Task list</a>
 <nav>
 
-
-<div class="row">
-  <div class="col-sm-4"><router-outlet></router-outlet>
-  </div>
-  <div class="col-sm-8">
-      <scheduler-calendar (refresh)="handleRefresh($event)"></scheduler-calendar>      
-  </div>
-</div>
+<router-outlet></router-outlet>

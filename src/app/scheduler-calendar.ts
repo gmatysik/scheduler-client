@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient, HttpHeaders} from  '@angular/common/http';
 import { TaskService } from './tasks.service';
 import { TaskUpdateService} from './taskUpdate.service';
@@ -18,14 +18,14 @@ const httpOptions = {
 })
 export class MyModel {
     selectedTask : Task;
-    
+    x
     private tasksUrl = 'http://localhost:8080/tasks';  // URL to web api
 
     constructor(private taskService: TaskService, private taskUpdateService: TaskUpdateService) { 
     }
         
         isOpen = false;
-  events: any[];
+        @Input() tasks: Task[];
   
   handleEventClick(e) {
     console.log('handleEvent: ' + e.calEvent.start.format().replace('T',' ').slice(0,-3));
@@ -45,11 +45,9 @@ export class MyModel {
   }
 
     ngOnInit() {
-    this.taskService.getTasks().then(events => {this.events = events;});
     this.taskUpdateService.emiter.subscribe(
         tasks => {
-            console.log("Refreshing" + tasks);
-            this.events = tasks;
+            this.tasks = tasks;
         });        
     }        
 }
