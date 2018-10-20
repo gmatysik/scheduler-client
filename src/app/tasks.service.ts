@@ -50,39 +50,25 @@ getTask(id: String): Promise<Task> {
 private headers = new Headers({'Content-Type': 'application/json'});
 
 update(task: Task): Promise<Task> {
-  var newFormDate = moment(task.start).format("YYYY-MM-DD hh:mm");
-  console.log('newFormDate 2' + newFormDate);
-  //task.start = this.convertUTCDateToLocalDate(new Date(task.start)).toISOString();
+  var startDate = task.start != null ? moment(task.start).format("YYYY-MM-DD hh:mm") : null;
+  var endDate = task.end != null ? moment(task.end).format("YYYY-MM-DD hh:mm") : null;  
   const url = `${this.tasksUrl}/${task.id}`;
   return this.http
-    .put(url, JSON.stringify({title: task.title, start: newFormDate, id: task.id}), httpOptions)
+    .put(url, JSON.stringify({title: task.title, start: startDate, id: task.id, end:endDate, description: task.description }), httpOptions)
     .toPromise()
-    .then(() => task)
-    .catch(this.handleError);
+    .then(() => task);
 }
 
 create(title: string, start: string): Promise<Task> {
   var newDate = new Date(start);
 
-  var newFormDate = moment(start).format("YYYY-MM-DD hh:mm");  
+  var startDate = moment(start).format("YYYY-MM-DD hh:mm");  
   
 
   return this.http
-    .post(this.tasksUrl + '/task', JSON.stringify({title: title, start: newFormDate}), httpOptions)
+    .post(this.tasksUrl + '/task', JSON.stringify({title: title, start: startDate}), httpOptions)
     .toPromise()
-    .then(res => res as Task)
-    .catch(this.handleError);
-}
-
-convertUTCDateToLocalDate(date) {
-  var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-
-  var offset = date.getTimezoneOffset() / 60;
-  var hours = date.getHours();
-
-  newDate.setHours(hours - offset);
-
-  return newDate;   
+    .then(res => res as Task);
 }
 
 delete(id: number): Promise<void> {
@@ -95,7 +81,6 @@ delete(id: number): Promise<void> {
 
 
 private handleError(error: any): Promise<any> {
-  console.error('An error occurred', error); // for demo purposes only
   return Promise.reject(error.message || error);
 }
 

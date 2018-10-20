@@ -21,7 +21,8 @@ import { Component, Input, OnInit } from '@angular/core';
         value="{{ newVar | date:'yyyy-MM-dd' }}"/-->
            <!--span class="btn btn-success" (click)="dp.toggle()" class="glyphicon glyphicon-calendar"></span-->
            <div class="form-group">
-            <label for="start">Start time:</label>           
+            <label for="start">Start time:</label>
+            
             <p-calendar type="start" [(ngModel)]="task.start" dateFormat="yy-mm-dd" [showTime]="true" hourFormat="24" class="form-control"></p-calendar>
            </div>
            
@@ -29,6 +30,10 @@ import { Component, Input, OnInit } from '@angular/core';
             <label for="end">End time:</label>           
             <p-calendar type="end" [(ngModel)]="task.end" dateFormat="yy-mm-dd" [showTime]="true" hourFormat="24" class="form-control"></p-calendar>           
            </div>
+          <div class="form-group">
+           <label for="name">Description:</label>
+           <input type="name" [(ngModel)]="task.description" placeholder="description" class="form-control"/>
+         </div>              
     </div>
   `
 })
@@ -40,6 +45,5 @@ export class TaskDetailComponent  implements OnInit  {
     }
       ngOnInit() {
         this.newVar = new Date();
-        console.log(this.newVar);
       }
 }

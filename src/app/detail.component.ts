@@ -10,10 +10,12 @@ import { TaskUpdateService } from './taskUpdate.service';
   selector: 'my-details',
   template: `
 
-  <div>
+<div>
   <button (click)="newTask()">New task</button>
 </div>
 
+<div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+<div class="alert alert-success" *ngIf="successMessage">{{successMessage}}</div>
 
 <div class="row">
   <div class="col-sm-4">
@@ -35,8 +37,12 @@ export class DetailComponent  {
   isDataAvailable:boolean = false;
    tasks : Task[];
    selectedTask : Task;
+   errorMessage : string = null;
+   successMessage : string = null;
 
   ngOnInit(): void {
+  
+
     this.taskService.getTasks().then(events => {
       this.tasks = events;
     });
@@ -45,6 +51,8 @@ export class DetailComponent  {
       
     this.taskUpdateService.taskRefreshEmiter.subscribe(
       id => {
+        this.successMessage = null;
+        this.errorMessage = null;
           this.taskService.getTask(id).then(task => this.selectedTask  = task);
       });        
 
@@ -56,16 +64,19 @@ export class DetailComponent  {
 
   save(): void {   
     if(this.selectedTask.id != null){
-      console.log('date before ' + this.selectedTask.start);
-        this.taskService.update(this.selectedTask).then(
+        this.taskService.update(this.selectedTask).then(          
           task => {
             this.taskService.getTasks().then(events => {
               this.tasks = events;
               this.selectedTask = null;
               this.taskUpdateService.updateList(this.tasks);
+              this.errorMessage = null;
+              this.successMessage = "Task data have been saved.";              
             });        
-          }
-        );
+          }, error => {
+            this.errorMessage = error.error[0];
+            this.successMessage = null;            
+          });
     } else {
         this.add(this.selectedTask);
     }
@@ -77,8 +88,13 @@ export class DetailComponent  {
       .then(task => {
         this.tasks.push(task);
         this.selectedTask = null;
-        this.taskUpdateService.updateList(this.tasks);              
-      }).catch((e) => {console.log(e)});
+        this.taskUpdateService.updateList(this.tasks);
+        this.errorMessage = null;
+        this.successMessage = "Task data have been saved.";                   
+      }, err => {
+        this.errorMessage = err.error[0];
+        this.successMessage = null;            
+      });
   }
 
 
@@ -88,5 +104,4 @@ export class DetailComponent  {
 
   constructor(private taskService: TaskService, private taskUpdateService: TaskUpdateService) { 
   }
-
 }

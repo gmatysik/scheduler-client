@@ -28,20 +28,13 @@ export class MyModel {
         @Input() tasks: Task[];
   
   handleEventClick(e) {
-    console.log('handleEvent: ' + e.calEvent.start.format().replace('T',' ').slice(0,-3));
-    console.log('handleEvent: ' + e.calEvent.id);
-    
     this.taskUpdateService.updateTask(e.calEvent.id);
-
-    //this.selectedTask = e.calEvent;
-    //this.selectedTask.start = e.calEvent.start.format().replace('T',' ').slice(0,-3);
     //e.calEvent = Selected event
     //e.jsEvent = Browser click event
     //e.view = Current view object
 }
 
   handleRefresh(agreed: Task[]) {
-    console.log('handleRefresh');
   }
 
     ngOnInit() {

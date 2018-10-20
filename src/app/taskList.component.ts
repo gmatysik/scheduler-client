@@ -90,7 +90,6 @@ delete(task: Task): void {
   }
 
   onSelect(task : Task){
-    console.log(task);
     this.selectedTask = task;
   }
 
