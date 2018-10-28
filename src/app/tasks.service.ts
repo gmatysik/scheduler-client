@@ -50,8 +50,10 @@ getTask(id: String): Promise<Task> {
 private headers = new Headers({'Content-Type': 'application/json'});
 
 update(task: Task): Promise<Task> {
-  var startDate = task.start != null ? moment(task.start).format("YYYY-MM-DD hh:mm") : null;
-  var endDate = task.end != null ? moment(task.end).format("YYYY-MM-DD hh:mm") : null;  
+  var startDate = task.start != null ? moment(task.start).format("YYYY-MM-DD HH:mm") : null;
+  var endDate = task.end != null ? moment(task.end).format("YYYY-MM-DD HH:mm") : null;  
+  console.log("start: " + task.start);
+  console.log("start: " + startDate);
   const url = `${this.tasksUrl}/${task.id}`;
   return this.http
     .put(url, JSON.stringify({title: task.title, start: startDate, id: task.id, end:endDate, description: task.description }), httpOptions)
@@ -62,7 +64,7 @@ update(task: Task): Promise<Task> {
 create(title: string, start: string): Promise<Task> {
   var newDate = new Date(start);
 
-  var startDate = moment(start).format("YYYY-MM-DD hh:mm");  
+  var startDate = moment(start).format("YYYY-MM-DD HH:mm");  
   
 
   return this.http
