@@ -1,6 +1,4 @@
 
-<!--task-detail [task] = "selectedTask"></task-detail-->
-
 <div (refresh)="handleRefresh($event)">
     <p-schedule [events]="tasks" timeFormat="HH:mm" (onEventClick)="handleEventClick($event)" hourFormat="24"></p-schedule>
 </div>

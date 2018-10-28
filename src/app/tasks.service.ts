@@ -17,9 +17,7 @@ export class TaskService{
 
   
 private tasksUrl = 'http://localhost:8080/tasks';  // URL to web api
-//private tasksUrl = 'api/tasks';  // URL to web api
 private latestTaskUrl = 'http://localhost:8080/tasks/next/10';  // URL to web api
-//private latestTaskUrl = 'api/tasks/11';  // URL to web api
 private taskNoUrl = 'http://localhost:8080/tasks/task/';  // URL to web api
 
 constructor(private http: HttpClient) { }
@@ -61,14 +59,11 @@ update(task: Task): Promise<Task> {
     .then(() => task);
 }
 
-create(title: string, start: string): Promise<Task> {
-  var newDate = new Date(start);
-
-  var startDate = moment(start).format("YYYY-MM-DD HH:mm");  
-  
-
+create(task: Task): Promise<Task> {
+  var startDate = task.start != null ? moment(task.start).format("YYYY-MM-DD HH:mm") : null;
+  var endDate = task.end != null ? moment(task.end).format("YYYY-MM-DD HH:mm") : null;  
   return this.http
-    .post(this.tasksUrl + '/task', JSON.stringify({title: title, start: startDate}), httpOptions)
+    .post(this.tasksUrl + '/task', JSON.stringify({title:task.title, start: startDate, end:endDate, description: task.description }), httpOptions)
     .toPromise()
     .then(res => res as Task);
 }

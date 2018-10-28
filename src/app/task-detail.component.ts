@@ -12,17 +12,8 @@ import { Component, Input, OnInit } from '@angular/core';
         <label for="name">Name:</label>
         <input type="name" [(ngModel)]="task.title" placeholder="title" class="form-control"/>
       </div>
-  <!--input type="text"
-  [(ngModel)]="task.title"
-  [minDate]="minDate"
-  [maxDate]="maxDate"
-  #dp="bsDatepicker"
-  bsDatepicker [(bsValue)]="newVar"
-        value="{{ newVar | date:'yyyy-MM-dd' }}"/-->
-           <!--span class="btn btn-success" (click)="dp.toggle()" class="glyphicon glyphicon-calendar"></span-->
            <div class="form-group">
-            <label for="start">Start time:</label>
-            
+            <label for="start">Start time:</label>            
             <p-calendar type="start" [(ngModel)]="task.start" dateFormat="yy-mm-dd" [showTime]="true" hourFormat="24" class="form-control"></p-calendar>
            </div>
            

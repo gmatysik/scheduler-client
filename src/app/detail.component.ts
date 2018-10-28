@@ -84,7 +84,7 @@ export class DetailComponent  {
 
 
   add(task: Task): void {
-    this.taskService.create(task.title, task.start)
+    this.taskService.create(task)
       .then(task => {
         this.tasks.push(task);
         this.selectedTask = null;
