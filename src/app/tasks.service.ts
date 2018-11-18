@@ -6,7 +6,8 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type':  'application/json',
+    'Authorization':'Basic ' + btoa('user:password')
   })
 };
 
@@ -31,7 +32,16 @@ getTask(id: String): Promise<Task> {
   
 
   getTasks(): Promise<Task[]> {
-     return this.http.get(this.tasksUrl)
+
+    
+  let headers: HttpHeaders = new HttpHeaders({
+    'Authorization': 'Basic ' + sessionStorage.getItem('token')// btoa('user:password')
+});
+
+let options = { headers: headers };
+
+  return this.http.get(this.tasksUrl, options)
+  //return this.http.get(this.tasksUrl)
               .toPromise()
               .then(response => response as Task[])
               .catch(this.handleError);

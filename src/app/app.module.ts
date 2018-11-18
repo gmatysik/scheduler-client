@@ -19,8 +19,10 @@ import { HttpClientModule } from  '@angular/common/http';
 import {CalendarModule} from 'primeng/calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TaskUpdateService} from './taskUpdate.service';
+import {LoginComponent} from './login.component';
 
 const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent },  
   { path: 'next-task', component: DetailComponent },
   { path: 'task-list', component: TaskListComponent },
   { path: 'task/:id',      component: DetailComponent },
@@ -38,7 +40,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent
+    AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent, LoginComponent
   ],
   imports: [
     BrowserAnimationsModule,
