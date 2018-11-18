@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { Task } from './task';
 import { HttpClient, HttpHeaders} from  '@angular/common/http';
 import * as moment from 'moment';
-import { Headers, Http, RequestOptions } from '@angular/http';
+//import { Headers, Http, RequestOptions } from '@angular/http';//TODO: deprecated
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization':'Basic ' + btoa('user:password')
+    //'Content-Type':  'application/json'
   })
 };
 
@@ -24,7 +23,7 @@ private taskNoUrl = 'http://localhost:8080/tasks/task/';  // URL to web api
 constructor(private http: HttpClient) { }
 
 getTask(id: String): Promise<Task> {  
-       return this.http.get(this.taskNoUrl + id)
+       return this.http.get(this.taskNoUrl + id, httpOptions)
                 .toPromise()
                 .then(response => response as Task)
                 .catch(this.handleError);
@@ -32,16 +31,16 @@ getTask(id: String): Promise<Task> {
   
 
   getTasks(): Promise<Task[]> {
+/*
+let headers = new HttpHeaders();
+headers = headers.append('Authorization','Basic ' + sessionStorage.getItem('token'));
+headers = headers.append('Content-Type','application/json');
 
-    
-  let headers: HttpHeaders = new HttpHeaders({
-    'Authorization': 'Basic ' + sessionStorage.getItem('token')// btoa('user:password')
-});
-
-let options = { headers: headers };
-
-  return this.http.get(this.tasksUrl, options)
-  //return this.http.get(this.tasksUrl)
+console.log('Auth: ' + headers.get('Authorization'));
+console.log('Content-Type: ' + headers.get('Content-Type'));
+*/
+//return this.http.get(this.tasksUrl, {headers})
+return this.http.get(this.tasksUrl)
               .toPromise()
               .then(response => response as Task[])
               .catch(this.handleError);
@@ -49,13 +48,11 @@ let options = { headers: headers };
 
   getLatestTasks(): Promise<Task[]> {
 
-     return this.http.get(this.latestTaskUrl)
+     return this.http.get(this.latestTaskUrl, httpOptions)
               .toPromise()
               .then(response => response as Task[])
               .catch(this.handleError);
     }
-
-private headers = new Headers({'Content-Type': 'application/json'});
 
 update(task: Task): Promise<Task> {
   var startDate = task.start != null ? moment(task.start).format("YYYY-MM-DD HH:mm") : null;
@@ -80,7 +77,7 @@ create(task: Task): Promise<Task> {
 
 delete(id: number): Promise<void> {
   const url = `${this.tasksUrl}/${id}`;
-  return this.http.delete(url,)
+  return this.http.delete(url,httpOptions)
     .toPromise()
     .then(() => null)
     .catch(this.handleError);

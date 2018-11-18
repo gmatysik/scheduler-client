@@ -20,12 +20,18 @@ import {CalendarModule} from 'primeng/calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TaskUpdateService} from './taskUpdate.service';
 import {LoginComponent} from './login.component';
+import {LogoutComponent} from './auth/logout.component';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
+import { HeaderInterceptor } from './auth/security.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },  
-  { path: 'next-task', component: DetailComponent },
-  { path: 'task-list', component: TaskListComponent },
-  { path: 'task/:id',      component: DetailComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
+  { path: 'next-task', component: DetailComponent, canActivate: [AuthGuard] },
+  { path: 'task-list', component: TaskListComponent, canActivate: [AuthGuard] },
+  { path: 'task/:id',  component: DetailComponent, canActivate: [AuthGuard] },
   {
     path: 'heroes',
     component: DetailComponent,
@@ -40,7 +46,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent, LoginComponent
+    AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent, LoginComponent, LogoutComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -56,7 +62,12 @@ const appRoutes: Routes = [
       { enableTracing: true }),
 
   ],
-  providers: [TaskUpdateService],
+  providers: [TaskUpdateService, AuthGuard, AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true // Add this line when using multiple interceptors.
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
