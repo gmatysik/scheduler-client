@@ -23,14 +23,14 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
 
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
         
     if(this.auth.isLoggednIn()){
 
       return true;
 
-    }else{
-
+    } else {
+      sessionStorage.setItem('jumpto', state.url);
+      
       this.myRoute.navigate(["login"]);
 
       return false;

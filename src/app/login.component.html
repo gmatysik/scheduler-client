@@ -1,5 +1,9 @@
-<form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-    <div [ngClass]="{ 'has-error': f.submitted && !user.valid }">
+<div *ngIf="isLoggedIn" class="content">
+    <span>Welcome !!</span>
+    <a class="btn btn-default pull-right"(click)="logout()" href="#">Logout</a>
+</div>
+<form *ngIf="!isLoggedIn" name="form" (ngSubmit)="login()" #f="ngForm" novalidate>
+    <!--div [ngClass]="{ 'has-error': f.submitted && !user.valid }">
         <label for="user">Username</label>
         <input type="text" name="user" [(ngModel)]="model.user" #user="ngModel" required />
         <div *ngIf="f.submitted && !user.valid">Username is required</div>
@@ -8,7 +12,7 @@
         <label for="password">Password</label>
         <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" required />
         <div *ngIf="f.submitted && !password.valid">Password is required</div>
-    </div>
+    </div-->
     <div>
         <button [disabled]="loading">Login</button>
     </div>
