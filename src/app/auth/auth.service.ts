@@ -8,13 +8,11 @@ export class AuthService {
 
   constructor(private myRoute: Router) { }
 
-/*  sendToken(token: string) {
-
-    localStorage.setItem("LoggedInUser", token)
-
+  sendToken(token: string) {
+    sessionStorage.setItem("LoggedInUser", token)
   }
 
-  getToken() {
+/*  getToken() {
 
     return localStorage.getItem("LoggedInUser")
 
