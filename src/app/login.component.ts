@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        window.location.href = 'http://localhost:8080/oauth/authorize?response_type=code&client_id=' + this.authService.clientId + '&redirect_uri='+ this.authService.redirectUri;
+        console.log('window.location.href: ' + 'http://192.168.99.100:8081/oauth/authorize?response_type=code&client_id=' + this.authService.clientId + '&redirect_uri='+ this.authService.redirectUri);        
+        window.location.href = 'http://192.168.99.100:8081/oauth/authorize?response_type=code&client_id=' + this.authService.clientId + '&redirect_uri='+ this.authService.redirectUri;
+        
         //window.location.href = 'http://localhost:8080/oauth/authorize?response_type=code&client_id=' + this.authService.clientId + '&redirect_uri='+ this.authService.redirectUri;    
 /*        
         //http://localhost:8080/oauth/authorize?response_type=code&client_id=' + this._service.clientId + '&redirect_uri='+ this._service.redirectUri

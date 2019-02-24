@@ -1,9 +1,7 @@
-<!--alert type="success">hello</alert-->
-
-<nav>
-  <a *ngIf="isLoggedIn()" routerLink="/next-task" routerLinkActive="active">Calendar view</a>
-  <a *ngIf="isLoggedIn()" routerLink="/task-list" routerLinkActive="active">Task list</a>
-  <a *ngIf="isLoggedIn()" routerLink="/logout" routerLinkActive="active">Logout</a>  
-<nav>
-
+<!--nav class="navbar navbar-fixed-top navbar-dark bg-inverse"-->
+<nav class="nav">
+  <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/next-task" >Calendar view</a>
+  <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/task-list" >Task list</a>
+  <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/logout" >Logout</a>
+</nav>
 <router-outlet></router-outlet>

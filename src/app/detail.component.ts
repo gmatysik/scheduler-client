@@ -11,7 +11,7 @@ import { TaskUpdateService } from './taskUpdate.service';
   template: `
 
 <div>
-  <button (click)="newTask()">New task</button>
+  <button (click)="newTask()" class="btn btn-primary">New task</button>
 </div>
 
 <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
@@ -21,7 +21,7 @@ import { TaskUpdateService } from './taskUpdate.service';
   <div class="col-sm-4">
       <task-detail [task] = "selectedTask"></task-detail>
       <div *ngIf="selectedTask">
-        <button (click)="save()">Save</button>
+        <button (click)="save()" class="btn btn-primary">Save</button>
       </div>
   </div>
   <div class="col-sm-8">

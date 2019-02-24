@@ -8,8 +8,9 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable()
 export class AuthService {
   public clientId = 'first-client';
-  public redirectUri = 'http://localhost:4200/login';
-
+  //public redirectUri = 'http://192.168.99.100:4200/login';
+  public redirectUri = 'http://192.168.99.100/login';
+  
   constructor(private myRoute: Router, private _http: HttpClient) { }
 
   sendToken(token: string) {
@@ -25,7 +26,7 @@ export class AuthService {
 
     let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Basic ' + btoa(this.clientId + ":noonewilleverguess")});
      //this._http.post('http://localhost:8081/spring-security-oauth-server/oauth/token', params.toString(), { headers: headers })
-     this._http.post('http://localhost:8080/oauth/token', params.toString(), { headers: headers })
+     this._http.post('http://192.168.99.100:8081/oauth/token', params.toString(), { headers: headers })
     .subscribe(
       data => this.saveToken(data),
       err => alert('Invalid Credentials')
@@ -37,7 +38,8 @@ export class AuthService {
     var expireDate = new Date().getTime() + (1000 * token.expires_in);
     Cookie.set("access_token", token.access_token, expireDate);
     console.log('Obtained Access token');
-    window.location.href = 'http://localhost:4200';
+    //window.location.href = 'http://192.168.99.100:4200';
+    window.location.href = 'http://192.168.99.100';
   }
 
   
