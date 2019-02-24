@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  frontendServerUrl: 'http://192.168.99.100',  
+  authorizationServerUrl: 'http://192.168.99.100:8081',
+  resourceServerUrl: 'http://192.168.99.100:8090'
 };
 
 /*

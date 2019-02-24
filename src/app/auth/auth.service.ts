@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
   public clientId = 'first-client';
   //public redirectUri = 'http://192.168.99.100:4200/login';
-  public redirectUri = 'http://192.168.99.100/login';
-  
+  //public redirectUri = 'http://192.168.99.100/login';
+  public redirectUri = environment.frontendServerUrl + '/login';
+
   constructor(private myRoute: Router, private _http: HttpClient) { }
 
   sendToken(token: string) {
@@ -26,7 +28,8 @@ export class AuthService {
 
     let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Basic ' + btoa(this.clientId + ":noonewilleverguess")});
      //this._http.post('http://localhost:8081/spring-security-oauth-server/oauth/token', params.toString(), { headers: headers })
-     this._http.post('http://192.168.99.100:8081/oauth/token', params.toString(), { headers: headers })
+     //this._http.post('http://192.168.99.100:8081/oauth/token', params.toString(), { headers: headers })
+     this._http.post(environment.authorizationServerUrl + '/oauth/token', params.toString(), { headers: headers })
     .subscribe(
       data => this.saveToken(data),
       err => alert('Invalid Credentials')
@@ -39,7 +42,8 @@ export class AuthService {
     Cookie.set("access_token", token.access_token, expireDate);
     console.log('Obtained Access token');
     //window.location.href = 'http://192.168.99.100:4200';
-    window.location.href = 'http://192.168.99.100';
+    //window.location.href = 'http://192.168.99.100';
+    window.location.href = environment.frontendServerUrl;
   }
 
   

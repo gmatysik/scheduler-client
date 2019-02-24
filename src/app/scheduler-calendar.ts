@@ -4,6 +4,7 @@ import { TaskService } from './tasks.service';
 import { TaskUpdateService} from './taskUpdate.service';
 import { Subscription }   from 'rxjs';
 import { Task }   from './task';
+import { environment } from '../environments/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -18,8 +19,9 @@ const httpOptions = {
 })
 export class MyModel {
     selectedTask : Task;
-    private tasksUrl = 'http://192.168.99.100:8090/tasks';  // URL to web api
-
+    //private tasksUrl = 'http://192.168.99.100:8090/tasks';  // URL to web api
+    private tasksUrl = environment.resourceServerUrl + '/tasks';  // URL to web api
+    
     constructor(private taskService: TaskService, private taskUpdateService: TaskUpdateService) { 
     }
         
