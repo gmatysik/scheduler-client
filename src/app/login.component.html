@@ -5,7 +5,13 @@
                 <h2>Welcome to Scheduler App</h2>
             </div>
 
-        
+            <div *ngIf="!isLoggedIn">
+                    Not logged in
+            </div>                    
+            <div *ngIf="isLoggedIn">
+                        Logged in
+            </div>                    
+            
             <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="login()" #f="ngForm" novalidate>
                     <div class="row justify-content-center align-items-center">                        
                         <p class="text-justify text-muted margin-top-10">Sign in</p>                                                                            
