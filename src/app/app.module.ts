@@ -51,6 +51,7 @@ const appRoutes: Routes = [
     AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent, LoginComponent, LogoutComponent, LoginAppComponent
   ],
   imports: [
+    RouterModule,
     BrowserAnimationsModule,
     BrowserModule,
     ScheduleModule,

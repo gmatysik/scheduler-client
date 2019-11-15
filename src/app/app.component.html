@@ -1,7 +1,21 @@
 <!--nav class="navbar navbar-fixed-top navbar-dark bg-inverse"-->
-<nav class="nav">
+<h1>Welcome to scheduler5!</h1>
+<div id="header" class="header" style="display: flex; justify-content: space-between" *ngIf="isLoggedIn()">
+  <div>
+      <button class="addTask">+ Add task</button>
+  </div>
+  <div> 
+      <!--input *ngIf="searchVisible" type="text" id="fsearch" name="fsearch" placeholder="Search" style="display:none" onfocusout="setTimeout(focusOut, 150)"-->
+      <input *ngIf="searchVisible" type="text" id="fsearch" name="fsearch" placeholder="Search" (focusout)="focusOut()">
+      <a id="switchSearch_" [routerLink]="" (click)="switchSearch()"><i class="fa fa-search"></i></a>
+      <a id="settings" [routerLink]=""><i class="fa fa-cog"></i></a>
+  </div>
+</div>
+<nav class="nav" *ngIf="isLoggedIn()">
   <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/next-task" >Calendar view</a>
   <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/task-list" >Task list</a>
   <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/logout" >Logout</a>
 </nav>
+<!--p class="test" *ngIf="isLoggedIn()" >Logout</p-->
+
 <router-outlet></router-outlet>
