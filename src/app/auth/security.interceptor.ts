@@ -21,6 +21,7 @@ export class HeaderInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
         /*if (req.url.endsWith('/login') && req.method === 'POST') {
             this.user = req.body.user;
             this.password = req.body.password;
@@ -47,6 +48,7 @@ export class HeaderInterceptor implements HttpInterceptor {
                 catchError((error: any, caught: Observable<HttpEvent<any>>) =>{
                     if (error.status === 401) {
                         this.router.navigate(['/login']);
+
                         //sessionStorage.removeItem('token');
                         this.authService.logout();
                         // if you've caught / handled the error, you don't

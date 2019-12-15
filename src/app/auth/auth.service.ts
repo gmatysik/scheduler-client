@@ -42,6 +42,7 @@ export class AuthService {
     this.myRoute.navigate(['/']);
   }
 
+
   
   getResource(resourceUrl) : Observable<any>{
     var headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Bearer '+Cookie.get('access_token')});

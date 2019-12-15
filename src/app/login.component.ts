@@ -34,4 +34,5 @@ export class LoginComponent implements OnInit {
     login() {
         window.location.href = environment.authorizationServerUrl + '/oauth/authorize?response_type=code&client_id=' + this.authService.clientId + '&redirect_uri='+ this.authService.redirectUri;
       }
+
 }
