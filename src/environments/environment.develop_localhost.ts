@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  frontendServerUrl: 'http://192.168.99.100',  
-  authorizationServerUrl: 'http://192.168.99.100:8081',
-  resourceServerUrl: 'http://192.168.99.100:8090'
+  frontendServerUrl: 'http://localhost:4200',  
+  authorizationServerUrl: 'http://localhost:8081',
+  resourceServerUrl: 'http://localhost:8090'
 };
 
 /*

@@ -1,0 +1,1 @@
+docker build -t scheduler:latest -f Dockerfile .

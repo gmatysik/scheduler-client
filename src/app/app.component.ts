@@ -7,6 +7,8 @@ import {AuthService} from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  implements OnInit  {
+
+  searchVisible = false;
   title = 'app';        
   maxDate = new Date(2019, 11, 10);
 
@@ -15,6 +17,16 @@ export class AppComponent  implements OnInit  {
 
   ngOnInit() {
     
+  }
+
+  focusOut() : void {
+    setTimeout (() => {
+      this.searchVisible = false;
+    }, 150)
+  }
+
+  switchSearch(): void {
+    this.searchVisible = !this.searchVisible;    
   }
 
   isLoggedIn(){

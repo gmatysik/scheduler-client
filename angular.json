@@ -48,7 +48,15 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
-            }
+            },
+            "develop_localhost":{
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.develop_localhost.ts"
+                }
+              ]              
+            } 
           }
         },
         "serve": {
@@ -59,6 +67,9 @@
           "configurations": {
             "production": {
               "browserTarget": "scheduler5:build:production"
+            },
+            "develop_localhost": {
+              "browserTarget": "scheduler5:build:develop_localhost"
             }
           }
         },

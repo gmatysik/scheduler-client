@@ -1,4 +1,4 @@
 
-<div (refresh)="handleRefresh($event)">
+<div (refresh)="handleRefresh($event)" style="max-width: 600px">
     <p-schedule [events]="tasks" timeFormat="HH:mm" (onEventClick)="handleEventClick($event)" hourFormat="24"></p-schedule>
 </div>

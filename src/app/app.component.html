@@ -1,9 +1,42 @@
-<!--alert type="success">hello</alert-->
+<!--nav class="navbar navbar-fixed-top navbar-dark bg-inverse"-->
+<h1>Welcome to scheduler5!</h1>
+<div id="header" class="header" style="display: flex; justify-content: space-between" *ngIf="isLoggedIn()">
+  <div>
+      <button class="btn btn-primary">+ Add task</button>
+  </div>
 
-<nav>
-  <a *ngIf="isLoggedIn()" routerLink="/next-task" routerLinkActive="active">Calendar view</a>
-  <a *ngIf="isLoggedIn()" routerLink="/task-list" routerLinkActive="active">Task list</a>
-  <a *ngIf="isLoggedIn()" routerLink="/logout" routerLinkActive="active">Logout</a>  
-<nav>
+  <div> 
+      <!--input *ngIf="searchVisible" type="text" id="fsearch" name="fsearch" placeholder="Search" style="display:none" onfocusout="setTimeout(focusOut, 150)"-->
+      <input *ngIf="searchVisible" type="text" id="fsearch" name="fsearch" placeholder="Search" (focusout)="focusOut()">
+      <a id="switchSearch_" [routerLink]="" (click)="switchSearch()"><i class="fa fa-search fa-2x"></i></a>
+      <a id="settings" [routerLink]=""><i class="fa fa-cog fa-2x"></i></a>
+      <a id="settings" routerLink="/logout"><i class="fa fa-sign-out fa-2x"></i></a>
+  </div>
+</div>
+
+
+<nav class="navbar" *ngIf="isLoggedIn()">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link fa fa-calendar fa-lg" *ngIf="isLoggedIn()" routerLink="/next-task"> Calendar view</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link fa fa-clock-o fa-lg" *ngIf="isLoggedIn()" routerLink="/task-list"> Task list</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link fa fa-filter fa-lg" *ngIf="isLoggedIn()" routerLink="/"> Filter</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/logout"> Logout</a>
+    </li>
+  </ul>
+</nav>
+
+<!--nav class="nav" *ngIf="isLoggedIn()">
+  <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/next-task" >Calendar view</a>
+  <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/task-list" >Task list</a>
+  <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/logout" >Logout</a>
+</nav-->
+<!--p class="test" *ngIf="isLoggedIn()" >Logout</p-->
 
 <router-outlet></router-outlet>

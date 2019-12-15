@@ -20,6 +20,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TaskUpdateService} from './taskUpdate.service';
 import {LoginComponent} from './login.component';
+import {LoginAppComponent} from './login-app.component';
 import {LogoutComponent} from './auth/logout.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
@@ -27,6 +28,7 @@ import { HeaderInterceptor } from './auth/security.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 const appRoutes: Routes = [
+  { path: 'login-app', component: LoginAppComponent },  
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
   { path: 'next-task', component: DetailComponent, canActivate: [AuthGuard] },
@@ -46,9 +48,10 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent, LoginComponent, LogoutComponent
+    AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent, LoginComponent, LogoutComponent, LoginAppComponent
   ],
   imports: [
+    RouterModule,
     BrowserAnimationsModule,
     BrowserModule,
     ScheduleModule,

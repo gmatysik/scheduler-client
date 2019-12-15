@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Task } from './task';
 import { HttpClient, HttpHeaders} from  '@angular/common/http';
 import * as moment from 'moment';
-
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn:  'root'
@@ -10,9 +10,12 @@ import * as moment from 'moment';
 export class TaskService{
 
   
-private tasksUrl = 'http://localhost:8080/tasks';  // URL to web api
-private latestTaskUrl = 'http://localhost:8080/tasks/next/10';  // URL to web api
-private taskNoUrl = 'http://localhost:8080/tasks/task/';  // URL to web api
+//private tasksUrl = 'http://192.168.99.100:8090/tasks';  // URL to web api
+//private latestTaskUrl = 'http://192.168.99.100:8090/tasks/next/10';  // URL to web api
+//private taskNoUrl = 'http://192.168.99.100:8090/tasks/task/';  // URL to web api
+private tasksUrl = environment.resourceServerUrl + '/tasks';  // URL to web api
+private latestTaskUrl = environment.resourceServerUrl + '/tasks/next/10';  // URL to web api
+private taskNoUrl = environment.resourceServerUrl + '/tasks/task/';  // URL to web api
 
 constructor(private http: HttpClient) { }
 

@@ -7,10 +7,10 @@ import { environment } from '../environments/environment';
 
 @Component({
     selector: 'login',
-    templateUrl: './login.component.html'
+    templateUrl: './login-app.component.html'
 })
 
-export class LoginComponent implements OnInit {
+export class LoginAppComponent implements OnInit {
     public isLoggedIn = false;
     model: any = {};
 
@@ -30,9 +30,5 @@ export class LoginComponent implements OnInit {
         }
 
     }
-
-    login() {
-        window.location.href = environment.authorizationServerUrl + '/oauth/authorize?response_type=code&client_id=' + this.authService.clientId + '&redirect_uri='+ this.authService.redirectUri;
-      }
 
 }
