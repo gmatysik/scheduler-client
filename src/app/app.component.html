@@ -2,7 +2,7 @@
 <h1>Welcome to scheduler5!</h1>
 <div id="header" class="header" style="display: flex; justify-content: space-between" *ngIf="isLoggedIn()">
   <div>
-      <button class="btn btn-primary">+ Add task</button>
+      <button mat-raised-button  (click)="openModal()">+ Add task</button>
   </div>
 
   <div> 

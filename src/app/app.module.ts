@@ -26,6 +26,10 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { HeaderInterceptor } from './auth/security.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import {TaskDialogComponent as TaskDialogComponent} from './task/task-dialog.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 
 const appRoutes: Routes = [
   { path: 'login-app', component: LoginAppComponent },  
@@ -48,7 +52,9 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,MyModel, DetailComponent, TaskListComponent, TaskDetailComponent, LoginComponent, LogoutComponent, LoginAppComponent
+    AppComponent, MyModel, DetailComponent, TaskListComponent, 
+    TaskDetailComponent, LoginComponent, LogoutComponent, LoginAppComponent,
+    TaskDialogComponent
   ],
   imports: [
     RouterModule,
@@ -63,14 +69,18 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true }),
+      MatButtonModule,
+    MatDialogModule
 
   ],
   providers: [TaskUpdateService, AuthGuard, AuthService,
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,
       multi: true // Add this line when using multiple interceptors.
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [TaskDialogComponent]
 })
 export class AppModule { }
