@@ -18,4 +18,7 @@ If If "Could not find module “@angular-devkit/build-angular” message appears
 
 Run `ng serve --configuration=develop_localhost` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Login
+username: enduser
+password: password
 
